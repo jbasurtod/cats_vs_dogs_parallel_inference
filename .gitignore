@@ -5,10 +5,10 @@ __pycache__/
 # Virtual envs
 .venv/
 env/
+.env
 
 # Datasets
 dataset/
-cats_vs_dogs_dataset/
 
 # Models
 *.pth
