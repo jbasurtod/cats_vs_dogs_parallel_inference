@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual envs
+.venv/
+env/
+
+# Datasets
+dataset/
+cats_vs_dogs_dataset/
+
+# Models
+*.pth
+*.pt
+
+# Configs
+*.log
+*.csv
+
+# IDE
+.vscode/
+.idea/
