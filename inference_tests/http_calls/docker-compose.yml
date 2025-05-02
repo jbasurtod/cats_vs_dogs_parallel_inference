@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_gateway
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - fastapi
+
+  fastapi:
+    build: ./fastapi
+    deploy:
+      mode: replicated
+      replicas: 5
+    environment:
+      - MODEL_PATH=/fastapi/model/mobilenetv3_cats_vs_dogs.pth
+    volumes:
+      - ../../dataset:/app/dataset
+    ports:
+      - "8000"
+    restart: always
+
+
+  celery:
+    build: ./app
+    container_name: celery_client
+    depends_on:
+      - nginx
+    environment:
+      - API_URL=http://nginx_gateway/
+    volumes:
+      - ../../dataset:/app/dataset
+      - ../../csv:/app/csv
+      - /app/results:/app/results
+      - /app/jupyters:/app/jupyters   # <-- NUEVO volumen montado
+    command: sleep infinity
+
+
+

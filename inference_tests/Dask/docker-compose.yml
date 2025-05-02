@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  dask-inference:
+    build: ./app
+    container_name: dask_inference
+    volumes:
+      - ./app:/app
+      - ../../dataset:/app/dataset
+      - ../../csv:/app/csv
+    environment:
+      - PYSPARK_PYTHON=python
+      - NVIDIA_VISIBLE_DEVICES=all  # Esto hace que todas las GPUs estén disponibles para el contenedor
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # Capabilidades necesarias para usar la GPU
+
+    ports:
+      - "8786:8786"  # Dask scheduler port
+      - "8787:8787"  # Dask dashboard port
+    command: sleep infinity  # O el comando que quieras ejecutar
+    mem_limit: 8g  # Aumenta el límite de memoria (ajusta según sea necesario)
+    runtime: nvidia  # Asegura que el contenedor use nvidia-docker para acceder a la GPU

@@ -21,3 +21,14 @@ dataset/
 # IDE
 .vscode/
 .idea/
+
+results/
+plots/
+model/
+models/
+resultados/
+Ray
+cuda-keyring_1.1-1_all.deb
+csv
+inference_results/
+jupyters/

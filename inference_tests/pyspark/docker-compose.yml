@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  spark-inference:
+    build: ./app
+    container_name: spark_inference
+    volumes:
+      - ./app:/app
+      - ../../dataset:/app/dataset
+      - ../../csv:/app/csv
+    environment:
+      - PYSPARK_PYTHON=python
+      - NVIDIA_VISIBLE_DEVICES=all  # Hace que todas las GPUs sean accesibles
+    command: sleep infinity
+    ports:
+      - "4040:4040"
+    runtime: nvidia  # Especifica que use la GPU
